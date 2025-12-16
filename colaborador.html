@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissão - Metanoia Engenharia</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    </head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="img/logo.png" alt="Metanoia Engenharia" onerror="this.style.display='none';">
+                <h1>METANOIA ENGENHARIA</h1>
+            </div>
+            <p>Ficha de Admissão Digital</p>
+        </header>
+
+        <div id="welcome-msg"></div>
+
+        <div class="sidebar-container">
+            <div class="sidebar">
+                <div class="card-box">
+                    <h3>📄 Passo 1: Imprimir Documentos</h3>
+                    <p style="font-size:0.85rem; color:#666;">Baixe e leve estas guias no dia do exame/banco.</p>
+                    <button type="button" class="btn btn-outline" id="btn-guia-exame">⬇ Baixar Guia de Exame</button>
+                    <button type="button" class="btn btn-outline" id="btn-carta-banco">⬇ Baixar Carta ao Banco</button>
+                </div>
+                <div class="card-box">
+                    <h3>📎 Passo 2: Anexar Documentos</h3>
+                    <p style="font-size:0.85rem;">Selecione RG, CPF, CTPS, Comp. Residência (Pode selecionar vários):</p>
+                    <input type="file" id="docs-upload" multiple>
+                    <small style="color:#888;">(Segure Ctrl ou Shift para selecionar múltiplos arquivos)</small>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <form id="colaboradorForm">
+                    <h3 class="section-title">Dados Contratuais (RH)</h3>
+                    <div class="form-row">
+                        <div class="col"><label>Nome</label><input type="text" id="field-nome" readonly></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col"><label>Cargo</label><input type="text" id="field-cargo" readonly></div>
+                        <div class="col"><label>Salário</label><input type="text" id="field-salario" readonly></div>
+                    </div>
+
+                    <h3 class="section-title">Dados Pessoais</h3>
+                    <div class="form-row">
+                        <div class="col"><label>CPF</label><input type="text" name="cpf" id="input-cpf" placeholder="000.000.000-00" maxlength="14" required></div>
+                        <div class="col"><label>RG</label><input type="text" name="rg" id="input-rg" required></div>
+                        <div class="col"><label>Órgão Emissor</label><input type="text" name="orgao" id="input-orgao" placeholder="Ex: SSP/BA" required></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col"><label>Data Nascimento</label><input type="date" name="data_nascimento" id="input-nascimento" required></div>
+                        <div class="col"><label>Estado Civil</label>
+                            <select name="estado_civil" id="input-ec" required>
+                                <option value="Solteiro">Solteiro(a)</option>
+                                <option value="Casado">Casado(a)</option>
+                                <option value="Divorciado">Divorciado(a)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col"><label>Endereço Completo</label><input type="text" name="endereco" id="input-endereco" required></div>
+                    </div>
+                    <div class="form-row">
+                         <div class="col"><label>Telefone</label><input type="text" name="telefone" id="input-telefone" required></div>
+                         <div class="col"><label>Nacionalidade</label><input type="text" name="nacionalidade" id="input-nacionalidade" required></div>
+                    </div>
+
+                    <h3 class="section-title">Dados Bancários (Sua Conta)</h3>
+                    <div class="form-row">
+                        <div class="col"><label>Banco</label><input type="text" name="banco_colab" id="input-banco-colab"></div>
+                        <div class="col"><label>Agência</label><input type="text" name="agencia_colab" id="input-agencia-colab"></div>
+                        <div class="col"><label>Conta</label><input type="text" name="conta_colab" id="input-conta-colab"></div>
+                    </div>
+
+                    <h3 class="section-title">Fardamento e EPI</h3>
+                    <div class="form-row">
+                        <div class="col"><label>Tamanho da Bota (Nº)</label><input type="number" name="tamanho_bota" id="input-bota" placeholder="Ex: 40" required></div>
+                        <div class="col"><label>Tamanho da Farda</label>
+                            <select name="tamanho_farda" id="input-farda" required>
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                                <option value="GG">GG</option>
+                                <option value="XG">XG</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success" style="margin-top:20px; padding: 20px;">
+                        📦 Gerar Pacote ZIP e Finalizar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-sucesso" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Processo Concluído!</h3>
+            <p>Um arquivo <strong>.ZIP</strong> com seu nome foi baixado.</p>
+            <p>Por favor, encaminhe este arquivo para:</p>
+            <div class="modal-email" id="modal-email-rh"></div>
+            <button class="btn" onclick="document.getElementById('modal-sucesso').style.display='none'">Fechar</button>
+        </div>
+    </div>
+
+    <div id="printable-guia" class="printable-doc">
+        <table class="guia-table">
+            <tr><td colspan="4" class="guia-header">GUIA DE EXAME MÉDICO - FR.RH.08</td></tr>
+            <tr><td colspan="4" class="guia-section-title">AUTORIZAÇÃO</td></tr>
+            <tr><td style="text-align:center;width:30px;">X</td><td colspan="3">Medicina do Trabalho</td></tr>
+            <tr><td colspan="1"><strong>Empresa:</strong></td><td colspan="3">METANOIA ENGENHARIA LTDA</td></tr>
+            <tr><td colspan="1"><strong>Nome:</strong></td><td colspan="3" id="print-guia-nome"></td></tr>
+            <tr><td colspan="1"><strong>Função:</strong></td><td colspan="3" id="print-guia-cargo"></td></tr>
+            <tr><td colspan="4" class="guia-section-title">EXAMES SOLICITADOS</td></tr>
+            
+            <tr><td colspan="4"><span id="check-clinico" class="mark-space">( )</span> Avaliação Clínica / Exame Clínico</td></tr>
+            <tr><td colspan="4"><span id="check-oftalmologica" class="mark-space">( )</span> Avaliação Oftalmológica</td></tr>
+            <tr><td colspan="4"><span id="check-psicossocial" class="mark-space">( )</span> Avaliação Psicossocial</td></tr>
+            <tr><td colspan="4"><span id="check-audiometria" class="mark-space">( )</span> Audiometria Tonal</td></tr>
+            <tr><td colspan="4"><span id="check-acuidade" class="mark-space">( )</span> Acuidade Visual</td></tr>
+            <tr><td colspan="4"><span id="check-bucal" class="mark-space">( )</span> Avaliação Bucal</td></tr>
+            <tr><td colspan="4"><span id="check-romberg" class="mark-space">( )</span> Teste Romberg</td></tr>
+            
+            <tr><td colspan="4"><span id="check-attm" class="mark-space">( )</span> ATTM-U Ácido Trans Transmuconico</td></tr>
+            <tr><td colspan="4"><span id="check-fluoreto" class="mark-space">( )</span> Fluoreto - Urina</td></tr>
+            <tr><td colspan="4"><span id="check-hemograma" class="mark-space">( )</span> Hemograma Completo</td></tr>
+            <tr><td colspan="4"><span id="check-plaquetas" class="mark-space">( )</span> Plaquetas</td></tr>
+            <tr><td colspan="4"><span id="check-reticulocitos" class="mark-space">( )</span> Reticulócitos</td></tr>
+            <tr><td colspan="4"><span id="check-glicemia" class="mark-space">( )</span> Glicemia</td></tr>
+            <tr><td colspan="4"><span id="check-colesterol" class="mark-space">( )</span> Colesterol Total</td></tr>
+            <tr><td colspan="4"><span id="check-triglicerides" class="mark-space">( )</span> Triglicerídeos</td></tr>
+            <tr><td colspan="4"><span id="check-gama_gt" class="mark-space">( )</span> Gama GT</td></tr>
+            <tr><td colspan="4"><span id="check-tgo" class="mark-space">( )</span> TGO</td></tr>
+            <tr><td colspan="4"><span id="check-tgp" class="mark-space">( )</span> TGP</td></tr>
+            <tr><td colspan="4"><span id="check-grupo_sanguineo" class="mark-space">( )</span> Grupo Sanguíneo</td></tr>
+            <tr><td colspan="4"><span id="check-fator_rh" class="mark-space">( )</span> Fator RH</td></tr>
+
+            <tr><td colspan="4"><span id="check-eeg" class="mark-space">( )</span> Eletroencefalograma</td></tr>
+            <tr><td colspan="4"><span id="check-ecg" class="mark-space">( )</span> Eletrocardiograma</td></tr>
+            <tr><td colspan="4"><span id="check-espirometria" class="mark-space">( )</span> Espirometria</td></tr>
+            <tr><td colspan="4"><span id="check-ergometrico" class="mark-space">( )</span> Teste Ergométrico</td></tr>
+            <tr><td colspan="4"><span id="check-rx_torax" class="mark-space">( )</span> Raio X de Tórax (OIT)</td></tr>
+            <tr><td colspan="4"><span id="check-rx_coluna" class="mark-space">( )</span> RX - Coluna lombo-sacra - 2 incidências</td></tr>
+            
+            <tr><td colspan="4" style="height:60px; vertical-align:bottom; text-align:center">____________________________<br>Assinatura RH</td></tr>
+        </table>
+    </div>
+
+    <div id="printable-carta" class="printable-doc">
+        <div class="letter-page">
+            <div class="letter-header">
+                <img src="img/logo.png" alt="Logo">
+                <p>METANOIA SERVIÇOS DE ENGENHARIA LTDA</p>
+                <p style="font-size:0.9rem;">CNPJ: <span id="print-carta-cnpj"></span></p>
+            </div>
+            <div class="letter-date">Camaçari - BA, <span id="print-carta-data"></span>.</div>
+            <div style="margin-bottom:30px;"><strong>Ao <span id="print-carta-banco"></span></strong><br>Ref.: Abertura de Conta Salário</div>
+            <div class="letter-body">
+                <p>Prezados,</p><br>
+                <p>Solicitamos a abertura de Conta Salário para o(a) Sr(a). <strong id="print-carta-nome"></strong>, portador(a) do CPF nº <strong id="print-carta-cpf"></strong> e RG nº <strong id="print-carta-rg"></strong> (<span id="print-carta-orgao"></span>).</p><br>
+                <p>Função: <strong id="print-carta-cargo"></strong>.<br>Admissão: <strong id="print-carta-admissao"></strong>.<br>Salário Inicial: <strong id="print-carta-salario"></strong>.</p>
+            </div>
+            <div class="letter-footer">
+                <div class="letter-signature-line">METANOIA ENGENHARIA<br>Recursos Humanos</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="printable-ficha" class="printable-doc">
+        <div class="ficha-page">
+            <div class="ficha-header">
+                <img src="img/logo.png" style="height:50px;">
+                <h2>FICHA DE ADMISSÃO DE COLABORADOR</h2>
+            </div>
+            <div class="ficha-block">
+                <div class="ficha-block-title">DADOS CONTRATUAIS</div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">NOME COMPLETO:</span><div class="ficha-value" id="ficha-nome"></div></div>
+                </div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">CARGO:</span><div class="ficha-value" id="ficha-cargo"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">SALÁRIO:</span><div class="ficha-value" id="ficha-salario"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">ADMISSÃO:</span><div class="ficha-value" id="ficha-admissao"></div></div>
+                </div>
+            </div>
+            <div class="ficha-block">
+                <div class="ficha-block-title">DADOS PESSOAIS</div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">CPF:</span><div class="ficha-value" id="ficha-cpf"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">RG:</span><div class="ficha-value" id="ficha-rg"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">ÓRGÃO EMISSOR:</span><div class="ficha-value" id="ficha-orgao"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">DT. NASC:</span><div class="ficha-value" id="ficha-nasc"></div></div>
+                </div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">ENDEREÇO COMPLETO:</span><div class="ficha-value" id="ficha-endereco"></div></div>
+                </div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">TELEFONE:</span><div class="ficha-value" id="ficha-telefone"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">NACIONALIDADE:</span><div class="ficha-value" id="ficha-nacionalidade"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">ESTADO CIVIL:</span><div class="ficha-value" id="ficha-ec"></div></div>
+                </div>
+            </div>
+            <div class="ficha-block">
+                <div class="ficha-block-title">DADOS BANCÁRIOS</div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">BANCO:</span><div class="ficha-value" id="ficha-banco"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">AGÊNCIA:</span><div class="ficha-value" id="ficha-agencia"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">CONTA:</span><div class="ficha-value" id="ficha-conta"></div></div>
+                </div>
+            </div>
+            <div class="ficha-block">
+                <div class="ficha-block-title">FARDAMENTO E EPI</div>
+                <div class="ficha-row">
+                    <div class="ficha-field"><span class="ficha-label">TAMANHO DA BOTA (Nº):</span><div class="ficha-value" id="ficha-bota"></div></div>
+                    <div class="ficha-field"><span class="ficha-label">TAMANHO DA FARDA:</span><div class="ficha-value" id="ficha-farda"></div></div>
+                </div>
+            </div>
+            <div style="margin-top:50px; text-align:center;">
+                ____________________________________________________<br>
+                Assinatura do Colaborador
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/colaborador_controller.js"></script>
+</body>
+</html>

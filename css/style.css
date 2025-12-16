@@ -1,0 +1,143 @@
+/* ==========================================================================
+   ARQUIVO: css/style.css (Atualizado com Modal e Ajustes)
+   ========================================================================== */
+
+/* --- Variáveis de Tema (Metanoia Engenharia) --- */
+:root {
+    --primary-color: #691C28;   /* Vinho Institucional */
+    --secondary-color: #8A2534; 
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #dee2e6;
+    --success-color: #198754;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+
+.container {
+    max-width: 960px; margin: 40px auto; padding: 35px;
+    background: var(--card-bg); border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-top: 6px solid var(--primary-color);
+}
+
+header { text-align: center; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+.logo-container img { max-height: 90px; max-width: 100%; object-fit: contain; }
+header h1 { color: var(--primary-color); font-size: 1.6rem; text-transform: uppercase; font-weight: 700; }
+header p { color: #666; margin-top: 5px; }
+
+#welcome-msg { text-align: center; margin-bottom: 30px; padding: 10px; background-color: rgba(105, 28, 40, 0.05); border-radius: 4px; color: var(--primary-color); font-weight: bold; }
+#link-backup-area { margin-top: 25px; padding: 20px; background-color: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 6px; color: #1b5e20; word-break: break-all; display: none; }
+
+.section-title { color: var(--primary-color); background-color: #f8f9fa; padding: 10px 15px; margin: 30px 0 20px 0; border-left: 5px solid var(--primary-color); font-weight: 600; }
+.form-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; }
+.col { flex: 1; min-width: 240px; }
+label { display: block; margin-bottom: 6px; font-weight: 600; color: #495057; }
+input, select { width: 100%; padding: 10px 12px; border: 1px solid #ced4da; border-radius: 4px; transition: 0.2s; }
+input:focus, select:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(105, 28, 40, 0.15); }
+input[readonly] { background-color: #e9ecef; color: #6c757d; cursor: not-allowed; }
+
+
+.modal-email { 
+    background: #f0f0f0; padding: 10px; border-radius: 4px; 
+    font-weight: bold; font-size: 1.1rem; color: #333; margin: 10px 0 20px 0; 
+    border: 1px dashed #999; word-break: break-all;
+    /* Adiciona a indicação visual de clique/cópia */
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.modal-email:hover {
+    background-color: #e0e0e0;
+}
+
+.btn { display: inline-block; width: 100%; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: 600; text-align: center; text-decoration: none; transition: 0.3s; background-color: var(--primary-color); color: white; }
+.btn:hover { background-color: var(--secondary-color); transform: translateY(-1px); }
+.btn-success { background-color: var(--success-color); }
+.btn-success:hover { background-color: #157347; }
+.btn-outline { background-color: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-outline:hover { background-color: var(--primary-color); color: white; }
+
+.checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; background: #fff; padding: 15px; border: 1px solid var(--border-color); border-radius: 4px; margin-top: 10px; }
+.checkbox-item { display: flex; align-items: center; font-size: 0.9rem; padding: 5px; border-radius: 4px; cursor: pointer; }
+.checkbox-item:hover { background-color: #f1f1f1; }
+.checkbox-item input { width: 16px; height: 16px; margin-right: 8px; accent-color: var(--primary-color); }
+
+.sidebar-container { display: flex; gap: 30px; align-items: flex-start; }
+.sidebar { flex: 1; min-width: 280px; order: 1; }
+.main-content { flex: 2; order: 2; }
+.card-box { background-color: #ffffff; padding: 20px; border-radius: 6px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.card-box h3 { font-size: 1.1rem; color: var(--primary-color); margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+
+/* --- DOCUMENTOS PARA IMPRESSÃO --- */
+.printable-doc { display: none; background: #fff; color: #000; }
+
+.guia-table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11px; }
+.guia-table td { border: 1px solid #000; padding: 4px 6px; vertical-align: middle; }
+.guia-header { text-align: center; font-weight: bold; font-size: 14px; background-color: #f2f2f2; padding: 8px !important; }
+.guia-section-title { background-color: #e6e6e6; font-weight: bold; text-align: center; text-transform: uppercase; }
+.mark-space { font-family: 'Courier New', monospace; font-weight: bold; font-size: 12px; margin-right: 5px; }
+
+.letter-page { font-family: 'Arial', sans-serif; font-size: 12pt; line-height: 1.6; padding: 40px; max-width: 800px; margin: 0 auto; }
+.letter-header { text-align: center; margin-bottom: 50px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
+.letter-header img { height: 70px; margin-bottom: 10px; }
+.letter-body { text-align: justify; margin-bottom: 60px; min-height: 200px; }
+.letter-footer { text-align: center; margin-top: 50px; }
+.letter-signature-line { border-top: 1px solid #000; width: 70%; margin: 0 auto; padding-top: 10px; font-weight: bold; }
+
+.ficha-page { font-family: 'Arial', sans-serif; font-size: 10pt; padding: 20px; border: 2px solid #000; }
+.ficha-header { text-align: center; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
+.ficha-header h2 { margin: 5px 0; text-transform: uppercase; }
+.ficha-block { border: 1px solid #000; margin-bottom: 15px; padding: 10px; }
+.ficha-block-title { background: #ddd; font-weight: bold; padding: 3px 5px; margin: -10px -10px 10px -10px; border-bottom: 1px solid #000; text-transform: uppercase; font-size: 9pt; }
+.ficha-row { display: flex; border-bottom: 1px solid #ccc; padding: 5px 0; }
+.ficha-row:last-child { border-bottom: none; }
+.ficha-field { flex: 1; padding: 0 5px; }
+.ficha-label { font-weight: bold; font-size: 8pt; color: #555; display: block; }
+.ficha-value { font-weight: bold; font-size: 10pt; color: #000; min-height: 18px; border-bottom: 1px dotted #999; }
+
+/* --- MODAL (CAIXA DE DIÁLOGO) --- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.modal-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-top: 6px solid var(--primary-color);
+}
+.modal-box h3 { color: var(--primary-color); margin-bottom: 15px; }
+.modal-box p { margin-bottom: 20px; font-size: 1rem; color: #333; }
+.modal-email { 
+    background: #f0f0f0; padding: 10px; border-radius: 4px; 
+    font-weight: bold; font-size: 1.1rem; color: #333; margin: 10px 0 20px 0; 
+    border: 1px dashed #999; word-break: break-all;
+}
+
+@media (max-width: 768px) {
+    .container { margin: 15px; padding: 20px; }
+    .sidebar-container { flex-direction: column; }
+    .sidebar { width: 100%; order: 2; }
+    .main-content { width: 100%; order: 1; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+    body * { visibility: hidden; }
+    .printable-doc, .printable-doc * { visibility: visible; display: block !important; }
+    .printable-doc { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+    @page { size: A4; margin: 10mm; }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RH - Metanoia Engenharia</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="img/logo.png" alt="Metanoia Engenharia" onerror="this.style.display='none';">
+                <h1>METANOIA ENGENHARIA</h1>
+            </div>
+            <p>Módulo RH - Cadastro de Admissão</p>
+        </header>
+
+        <form id="rhForm">
+            <h3 class="section-title">1. Dados do Candidato</h3>
+            <div class="form-row">
+                <div class="col"><label>Nome Completo</label><input type="text" name="nome" required placeholder="Ex: Vinicius Costa"></div>
+                <div class="col"><label>E-mail</label><input type="email" name="email" required placeholder="email@exemplo.com"></div>
+            </div>
+            <div class="form-row">
+                <div class="col"><label>Cargo</label><input type="text" name="cargo" required></div>
+                <div class="col"><label>Salário (R$)</label><input type="number" name="salario" step="0.01" required></div>
+                <div class="col"><label>Data Admissão</label><input type="date" name="data_admissao" required></div>
+            </div>
+
+            <h3 class="section-title">2. Local de Exame</h3>
+            <div class="form-row">
+                <div class="col"><label>Clínica / Endereço</label><input type="text" name="local_exame" required value="Clínica Saúde Ocupacional - Centro"></div>
+            </div>
+
+            <h3 class="section-title">3. Dados da Empresa (Bancários)</h3>
+            <div class="form-row">
+                <div class="col"><label>Banco Parceiro</label><input type="text" name="banco_empresa" value="Itaú Unibanco S/A"></div>
+                <div class="col"><label>CNPJ</label><input type="text" name="cnpj_empresa" value="35.121.384/0001-85"></div>
+                <div class="col"><label>E-mail do RH (Contato)</label><input type="email" name="email_rh" value="rh@metanoiaengenharia.com.br" required></div>
+            </div>
+
+            <h3 class="section-title">4. Seleção de Exames (PCMSO Completo)</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:10px;">Marque os exames necessários:</p>
+            
+            <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="clinico" checked> Avaliação Clínica Ocupacional</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="acuidade"> Acuidade Visual</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="oftalmologica"> Avaliação Oftalmológica</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="psicossocial"> Avaliação Psicossocial</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="bucal"> Avaliação Bucal</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="audiometria"> Audiometria Tonal</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="romberg"> Teste Romberg</label>
+
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="hemograma"> Hemograma Completo</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="glicemia"> Glicemia</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="plaquetas"> Plaquetas</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="reticulocitos"> Reticulócitos</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="grupo_sanguineo"> Grupo Sanguíneo</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="fator_rh"> Fator RH</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="colesterol"> Colesterol Total</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="triglicerides"> Triglicerídeos</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="gama_gt"> Gama GT</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="tgo"> TGO</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="tgp"> TGP</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="fluoreto"> Fluoreto (Urina)</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="attm"> Ácido Trans Transmuconico</label>
+
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="rx_torax"> Raio X de Tórax (OIT)</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="rx_coluna"> RX Coluna Lombo-sacra (2 inc.)</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="ecg"> Eletrocardiograma (ECG)</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="eeg"> Eletroencefalograma (EEG)</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="espirometria"> Espirometria</label>
+                <label class="checkbox-item"><input type="checkbox" name="exames" value="ergometrico"> Teste Ergométrico</label>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button type="submit" class="btn">📧 Gerar e Enviar por E-mail</button>
+            </div>
+        </form>
+
+        <div id="link-backup-area">
+            <strong>Link Gerado:</strong> <a id="generated-link" href="#" target="_blank"></a>
+        </div>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/rh_controller.js"></script>
+</body>
+</html>
